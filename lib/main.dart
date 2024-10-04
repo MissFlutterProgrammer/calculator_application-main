@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:calculator_application/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -29,10 +31,14 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
       children: [
         TextButton(
           style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
+            shape: CircleBorder(
+              side: BorderSide(
+                width: 0,
+                color: Colors.transparent,
               ),
-              backgroundColor: getBackgroundColor(text1)),
+            ),
+            backgroundColor: getBackgroundColor(text1),
+          ),
           onPressed: () {
             if (text1 == 'ac') {
               setState(() {
@@ -57,14 +63,18 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
+            shape: CircleBorder(
+              side: BorderSide(
+                width: 0,
+                color: Colors.transparent,
               ),
-              backgroundColor: getBackgroundColor(text2)),
+            ),
+            backgroundColor: getBackgroundColor(text2),
+          ),
           onPressed: () {
             if (text2 == 'ce') {
               setState(() {
-                if (inputUser.length > 0) {
+                if (inputUser.isNotEmpty) {
                   inputUser = inputUser.substring(0, inputUser.length - 1);
                 }
               });
@@ -86,10 +96,14 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
+            shape: CircleBorder(
+              side: BorderSide(
+                width: 0,
+                color: Colors.transparent,
               ),
-              backgroundColor: getBackgroundColor(text3)),
+            ),
+            backgroundColor: getBackgroundColor(text3),
+          ),
           onPressed: () {
             buttonPressed(text3);
           },
@@ -107,17 +121,23 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
+            shape: CircleBorder(
+              side: BorderSide(
+                width: 0,
+                color: Colors.transparent,
               ),
-              backgroundColor: getBackgroundColor(text4)),
+            ),
+            backgroundColor: getBackgroundColor(text4),
+          ),
           onPressed: () {
             if (text4 == '=') {
               Parser parser = Parser();
               Expression expression = parser.parse(inputUser);
               ContextModel contextModel = ContextModel();
-              double eval =
-                  expression.evaluate(EvaluationType.REAL, contextModel);
+              double eval = expression.evaluate(
+                EvaluationType.REAL,
+                contextModel,
+              );
               setState(() {
                 result = eval.toString();
               });
@@ -163,9 +183,10 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
                           inputUser,
                           textAlign: TextAlign.end,
                           style: TextStyle(
-                              color: textGreen,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28),
+                            color: textGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                          ),
                         ),
                       ),
                       Padding(
@@ -186,17 +207,18 @@ class _CalculatorApplicationState extends State<CalculatorApplication> {
               Expanded(
                 flex: 7,
                 child: Container(
-                    color: backgroundGrey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        getRow('ac', 'ce', '%', '/'),
-                        getRow('7', '8', '9', '*'),
-                        getRow('4', '5', '6', '-'),
-                        getRow('1', '2', '3', '+'),
-                        getRow('00', '0', '.', '='),
-                      ],
-                    )),
+                  color: backgroundGrey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      getRow('ac', 'ce', '%', '/'),
+                      getRow('7', '8', '9', '*'),
+                      getRow('4', '5', '6', '-'),
+                      getRow('1', '2', '3', '+'),
+                      getRow('00', '0', '.', '='),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
